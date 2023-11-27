@@ -171,7 +171,6 @@ export default {
             this.listLoading = true
             getList(this.searchParams).then(response => {
                 this.list = response.data.items
-                // console.log(this.list);
                 this.total = response.data.total
                 this.listLoading = false
             })
@@ -276,13 +275,11 @@ export default {
             getGrantAuth({id: id}).then(response => {
                 this.defaultCheckedKeys = response.data;
                 this.checkedAuthIds = response.data;
-                // console.log(this.defaultCheckedKeys);
             })
         },
         getAuthList() {
             getAuthList().then(response => {
                 this.authList = response.data;
-                // console.log(this.authList);
                 // 选出顶级模块作为默认展开
                 this.defaultExpandedKeys = this.authList.map(v => {return v.id})
             })

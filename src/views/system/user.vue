@@ -46,7 +46,8 @@
       </el-table-column>
       <el-table-column label="头像" width="110" align="center">
         <template slot-scope="scope">
-          <el-avatar :src="scope.row.avatar_url" fit="cover"></el-avatar>
+          <el-avatar v-if="scope.row.avatar_url" :src="scope.row.avatar_url" fit="cover"></el-avatar>
+          <el-avatar v-else :src="require('@/assets/avatar.png')" fit="cover"></el-avatar>
         </template>
       </el-table-column>
       <el-table-column label="状态" align="center">
@@ -225,7 +226,6 @@ export default {
       this.getList();
     },
     handleAvatarSuccess(res, file) {
-      // console.log(file);
       if (file.response.code == 200) {
         this.form.avatar = file.response.data.img;
         this.imageUrl = URL.createObjectURL(file.raw);
@@ -234,7 +234,6 @@ export default {
       }
     },
     beforeAvatarUpload(file) {
-      console.log(file);
       const isJPG = file.type === 'image/jpeg';
       const isPNG = file.type === 'image/png';
       const isGIF = file.type === 'image/gif';
@@ -250,7 +249,6 @@ export default {
       }
     },
     handleExcelSuccess(res, file) {
-      // console.log(file);
       if (file.response.code == 200) {
         var excelPath = file.response.data.excel;
         Import({ excelPath: excelPath }).then(response => {
@@ -265,7 +263,6 @@ export default {
       }
     },
     beforeExcelUpload(file) {
-      // console.log(file);
       const isXLSX = file.type === 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
 
       if (!isXLSX) {
@@ -275,10 +272,8 @@ export default {
     },
     getList() {
       this.listLoading = true
-      console.log(this.searchParams);
       getList(this.searchParams).then(response => {
         this.list = response.data.items
-        // console.log(this.list);
         this.total = response.data.total
         this.listLoading = false
       })
@@ -401,7 +396,6 @@ export default {
       this.getRoleNameList();
       getGrantRole({id: id}).then(response => {
         this.checkedRoleArr = response.data;
-        console.log(this.checkedRoleArr);
       });
     },
     grantRole() {

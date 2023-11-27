@@ -127,7 +127,6 @@ export default {
         getUserNameList() {
             getUserNameList().then(response => {
                 this.userNameList = response.data
-                // console.log(this.userNameList);
             })
         },
         handleSelectionChange(val) {
@@ -151,7 +150,6 @@ export default {
             this.listLoading = true
             getList(this.searchParams).then(response => {
                 this.list = response.data.items
-                console.log(this.list);
                 this.total = response.data.total
                 this.listLoading = false
             })

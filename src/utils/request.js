@@ -1,7 +1,8 @@
 import axios from 'axios'
+import router from '@/router'
 import { MessageBox, Message } from 'element-ui'
 import store from '@/store'
-import { getToken } from '@/utils/auth'
+import { getToken, removeToken } from '@/utils/auth'
 
 // create an axios instance
 const service = axios.create({
@@ -75,9 +76,15 @@ service.interceptors.response.use(
         duration: 5 * 1000
       })
 
+      // 返回101,102,103,199则删除本地token
+      if (res.code == 101 || res.code == 102 || res.code == 103 || res.code == 199) {
+        removeToken();
+        router.push('/login');
+      }
+
       return Promise.reject(new Error(res.msg || 'Error'))
     } else {
-      return res
+      return res;
     }
   },
   error => {

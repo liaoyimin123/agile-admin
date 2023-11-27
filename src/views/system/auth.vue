@@ -110,7 +110,6 @@ export default {
             this.listLoading = true
             getList().then(response => {
                 this.list = response.data;
-                console.log(this.list);
                 this.listLoading = false
             })
         },
